@@ -1,5 +1,8 @@
 const express=require('express');
 const router=express.Router();
+var fs = require('fs');
+var pdf = require('html-pdf');
+var ejs = require('ejs');
 var Customer=require('../model/Customer');
 
 router.get("/",function(req,res){
@@ -13,6 +16,35 @@ router.get("/",function(req,res){
 	
 
 })
+router.get("/temp",function(req,res){
+	
+	res.render('customer')
+	
+	
+
+})
+router.get("/pdf",function(req,res){
+	
+	var html = fs.readFileSync('./views/customer.ejs', 'utf8');
+	var options = { format: 'Letter' };
+ let renderedHTML = ejs.render(html);
+            pdf.create(renderedHTML, options).toBuffer(function (err, buffer) {
+               console.log('This is a buffer:', Buffer.isBuffer(buffer));
+				res.attachment("test.pdf");
+				res.setHeader('content-type', 'application/pdf');
+                res.status(200).send(buffer)
+                
+            });
+//pdf.create(renderedHTML, options).toFile('./businesscard.pdf', function(err, result) {
+  //if (err) return console.log(err);
+  //console.log(result); // { filename: '/app/businesscard.pdf' }
+  //res.status(200).send(result)
+//});
+	
+	
+
+})
+
 
 router.post("/",function(req,res){
 	

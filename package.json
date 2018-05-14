@@ -10,7 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "bootstrap": "^4.1.1",
+    "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "mongoose": "^5.1.0"
+    "html-pdf": "^2.2.0",
+    "jquery": "^3.3.1",
+    "mongoose": "^5.1.0",
+    "phantomjs-prebuilt": "^2.1.16",
+    "popper.js": "^1.14.3"
   }
 }

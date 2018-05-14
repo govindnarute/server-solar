@@ -24,6 +24,7 @@ const myApp=express();
 myApp.use(bodyParser.json());
 myApp.use(bodyParser.text({ type: 'text/html' }));
 myApp.use(express.static(path.join(__dirname, 'public')));
+myApp.set('view engine', 'ejs')
 
 myApp.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
