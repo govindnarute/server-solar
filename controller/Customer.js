@@ -17,17 +17,34 @@ router.get("/",function(req,res){
 
 })
 router.get("/temp",function(req,res){
+	Customer.find({}).exec(function (err, result) {
+            if(err){
+                return res.send({message:"error",description:err})
+            }
+			var data={
+		name:"govind",
+		customers:result
+	}
+	res.render('customer',data)
 	
-	res.render('customer')
-	
-	
+	});
 
 })
 router.get("/pdf",function(req,res){
 	
 	var html = fs.readFileSync('./views/customer.ejs', 'utf8');
 	var options = { format: 'Letter' };
- let renderedHTML = ejs.render(html);
+	
+	
+	Customer.find({}).exec(function (err, result) {
+            if(err){
+                return res.send({message:"error",description:err})
+            }
+			var data={
+		name:"govind",
+		customers:result
+	}
+            let renderedHTML = ejs.render(html,data);
             pdf.create(renderedHTML, options).toBuffer(function (err, buffer) {
                console.log('This is a buffer:', Buffer.isBuffer(buffer));
 				res.attachment("test.pdf");
@@ -35,6 +52,8 @@ router.get("/pdf",function(req,res){
                 res.status(200).send(buffer)
                 
             });
+        })
+ 
 //pdf.create(renderedHTML, options).toFile('./businesscard.pdf', function(err, result) {
   //if (err) return console.log(err);
   //console.log(result); // { filename: '/app/businesscard.pdf' }

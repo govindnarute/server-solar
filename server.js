@@ -6,6 +6,7 @@ const path = require('path');
 const user=require('./controller/Users');
 const customer=require('./controller/Customer');
 const product=require('./controller/Product');
+const receipt=require('./controller/Receipt');
 
 
 
@@ -53,6 +54,7 @@ mongoose.connect(mongodbURL, function (err, db) {
 myApp.use("/api/users",user)
 myApp.use("/api/customers",customer)
 myApp.use("/api/products",product)
+myApp.use("/api/receipts",receipt)
 
 myApp.all('*', (req, res) => {
         //console.log(`[TRACE] Server 404 request: ${req.originalUrl}`);
